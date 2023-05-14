@@ -1,5 +1,18 @@
 <?php
 require 'function.php';
+
+$data_obat = query("SELECT * FROM stock");
+
+if(isset($_POST['addnewobat'])){
+    if(addNewData($_POST) > 0){
+        echo "
+            <script>
+            alert('Data Berhasil Ditambahkan!');
+            document.location.href = 'index.php';
+            </script>
+        ";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,14 +86,25 @@ require 'function.php';
                                         <th>Nama Obat</th>
                                         <th>Deskripsi</th>
                                         <th>Stock</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                </tr>
+                                <?php foreach ($data_obat as $data) : ?>
+                                    <tr>
+                                        <td><?= $data['idobat'] ?></td>
+                                        <td><?= $data['namaobat'] ?></td>
+                                        <td><?= $data['deskripsi'] ?></td>
+                                        <td><?= $data['stock'] ?></td>
+                                        <td>  
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$kodeb;?>">
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?> 
 
 
                                 </tbody>
@@ -137,5 +161,7 @@ require 'function.php';
                     <button type="submit" class="btn btn-primary" name="addnewobat">Submit</button>
                 </div>
             </form>
-
+        </div>
+    </div>
+</div>
 </html>

@@ -5,26 +5,28 @@ session_start();
 $conn = mysqli_connect("localhost", "root", "", "apotek");
 
 
-//Menambah Obat baru
-if (isset($_POST['addnewobat'])) {
-    $namaobat = $_POST['namaobat'];
-    $deskripsi = $_POST['deskripsi'];
-    $stock = $_POST['stock'];
-
-    $addtotable = mysqli_query($conn, "insert into stock (namaobat,deskripsi,stock) values('$namaobat','$deskprisi','$stock')");
-    if ($addtotable) {
-        header('location:index.php');
-    } else {
-        echo 'Gagal';
-        header('location:index.php');
-    }
+function query($query)
+{
+	global $conn;
+	$result = mysqli_query($conn, $query);
+	$rows = [];
+	while ($row = mysqli_fetch_assoc($result)) {
+		$rows[] = $row;
+	}
+	return $rows;
 }
 
-//menambah obat masuk
-if (isset($_POST['obatmasuk'])) {
+function addNewData($data)
+{
+	global $conn;
+	// ambil data dari tiap elemen di dalam form
+	$namaobat = htmlspecialchars($data['namaobat']);
+	$desc = htmlspecialchars($data['deskripsi']);
+	$stock = htmlspecialchars($data['stock']);
 
-    $obatnya = $_POST['obat'];
-    $penerima = $_POST['penerima'];
+	$query = "INSERT INTO stock VALUES 
+	('', '$namaobat', '$desc', '$stock')";
+	mysqli_query($conn, $query);
 
-    $addtomasuk = mysqli_query($conn, "insert into masuk (idobat, keterangan) values ($obatnya)");
+	return mysqli_affected_rows($conn);
 }
