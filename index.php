@@ -1,4 +1,6 @@
 <?php
+session_start();
+require 'cek.php';
 require 'function.php';
 
 $data_obat = query("SELECT * FROM stock");
@@ -13,6 +15,8 @@ if(isset($_POST['addnewobat'])){
         ";
     }
 }
+
+var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">

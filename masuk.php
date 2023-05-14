@@ -1,4 +1,6 @@
 <?php
+
+require 'cek.php';
 require 'function.php';
 ?>
 <!DOCTYPE html>
