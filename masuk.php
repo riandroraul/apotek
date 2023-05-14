@@ -1,7 +1,8 @@
 <?php
+session_start();
 
-require 'cek.php';
 require 'function.php';
+require 'cek.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

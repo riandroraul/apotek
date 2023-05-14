@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require 'function.php';
 
 //Cek login, terdaftar atau tidak
@@ -11,7 +13,7 @@ if(isset($_POST['login'])){
     //hitung jumlah data
     $hitung = mysqli_num_rows($cekdatabase);
 
-    if($hitung>0){
+    if($hitung > 0){
         $_SESSION['log'] = 'True';
         header("Location: index.php");
     } else {
@@ -19,10 +21,11 @@ if(isset($_POST['login'])){
     };
 };
 
-if(!isset($_SESSION['log'])){
-}else {
-    header('location:index.php');  
-}
+// if(!isset($_SESSION['log'])){
+//     header('location:login.php');  
+// }else {
+//     header('location:index.php');  
+// }
 
 ?>
 <!DOCTYPE html>

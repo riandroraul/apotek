@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require 'cek.php';
 require 'function.php';
 ?>

@@ -1,7 +1,11 @@
 <?php
 session_start();
-require 'cek.php';
+
 require 'function.php';
+
+if(!isset($_SESSION['log'])){
+    header('location:login.php');  
+}
 
 $data_obat = query("SELECT * FROM stock");
 
@@ -16,7 +20,6 @@ if(isset($_POST['addnewobat'])){
     }
 }
 
-var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
