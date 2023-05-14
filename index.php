@@ -7,7 +7,11 @@ if(!isset($_SESSION['log'])){
     header('location:login.php');  
 }
 
+$idobat = $_POST['edit'];
 $data_obat = query("SELECT * FROM stock");
+$dataObatById = query("SELECT * FROM stock WHERE idobat = '$idobat'");
+
+var_dump($dataObatById);
 
 if(isset($_POST['addnewobat'])){
     if(addNewData($_POST) > 0){
@@ -103,7 +107,7 @@ if(isset($_POST['addnewobat'])){
                                         <td><?= $data['deskripsi'] ?></td>
                                         <td><?= $data['stock'] ?></td>
                                         <td>  
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$kodeb;?>">
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit" name="edit" value="<?= $data['idobat']; ?>">
                                                 Edit
                                             </button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
@@ -111,9 +115,8 @@ if(isset($_POST['addnewobat'])){
                                             </button>
                                         </td>
                                     </tr>
+                                
                                 <?php endforeach; ?> 
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -169,6 +172,33 @@ if(isset($_POST['addnewobat'])){
                 </div>
             </form>
         </div>
+    </div>
+</div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="edit">
+    <div class="modal-dialog">
+    <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">Edit Barang</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <form method="post">
+        <div class="modal-body">
+        <input type="text" name="namaobat" value = "<?=$data['namaobat'];?>" class="form-control" required>
+        <br>
+        <input type="text" name="deskripsi" value = "<?=$data['desiskrip'];?>" class="form-control" required>
+        <br>
+        <input type="number" name="stok" value = "<?=$data['stok'];?>" class="form-control" required>
+        <br>
+        <input type= "hidden" name = "idobat" value=<?=$data['idobat'];?>>
+        <button type="submit" class="btn btn-primary" name="updatebarangstok">Edit</button>
+        </div>
+    </form>
+    </div>
     </div>
 </div>
 </html>
