@@ -13,14 +13,13 @@ if(isset($_POST['login'])){
 
     if($hitung>0){
         $_SESSION['log'] = 'True';
-        header('location:index.php');
+        header("Location: index.php");
     } else {
-        header('location:login.php');
+        header("Location: login.php");
     };
 };
 
-if(isset($_SESSION['log'])){
-
+if(!isset($_SESSION['log'])){
 }else {
     header('location:index.php');  
 }
